@@ -1,0 +1,64 @@
+# NeoJaundice — Production Healthcare App Complete
+
+## What Was Built
+
+A fully functional **NeoJaundice** neonatal jaundice screening system — 8 complete screens, clinical design system, full navigation, form logic, risk scoring, processing animation, and screening history.
+
+**Location:** `C:\Users\SRM MADURAI\.gemini\antigravity\scratch\neojaundice\`
+
+---
+
+## Screenshots
+
+````carousel
+![Screen 1 — Home Dashboard](/C:/Users/SRM MADURAI/.gemini/antigravity/brain/89d1862c-9337-47af-8e55-ec1e9b2d3c8a/s1_home.png)
+<!-- slide -->
+![Screen 3 — Image Capture](/C:/Users/SRM MADURAI/.gemini/antigravity/brain/89d1862c-9337-47af-8e55-ec1e9b2d3c8a/s3_capture.png)
+<!-- slide -->
+![Screen 4 — Processing](/C:/Users/SRM MADURAI/.gemini/antigravity/brain/89d1862c-9337-47af-8e55-ec1e9b2d3c8a/s4_processing.png)
+<!-- slide -->
+![Screen 6 — Screening History](/C:/Users/SRM MADURAI/.gemini/antigravity/brain/89d1862c-9337-47af-8e55-ec1e9b2d3c8a/s6_history.png)
+<!-- slide -->
+![Screen 7 — Record Detail / LOW RISK](/C:/Users/SRM MADURAI/.gemini/antigravity/brain/89d1862c-9337-47af-8e55-ec1e9b2d3c8a/screen7_detail_view_1772430734499.png)
+<!-- slide -->
+![Screen 8 — Help & Guidelines](/C:/Users/SRM MADURAI/.gemini/antigravity/brain/89d1862c-9337-47af-8e55-ec1e9b2d3c8a/s8_help.png)
+````
+
+---
+
+## Browser Recording
+
+![NeoJaundice full flow demo](/C:/Users/SRM MADURAI/.gemini/antigravity/brain/89d1862c-9337-47af-8e55-ec1e9b2d3c8a/neojaundice_verification_1772430365349.webp)
+
+---
+
+## All 8 Screens — Verification Results
+
+| # | Screen | Status |
+|---|--------|--------|
+| 1 | Home Dashboard | ✅ PASS |
+| 2 | Neonatal Details Form (5 sections) | ✅ PASS |
+| 3 | Image Capture (camera preview, indicators) | ✅ PASS |
+| 4 | Processing Animation (4-step pipeline) | ✅ PASS |
+| 5 | Result & Risk Assessment | ✅ PASS |
+| 6 | Screening History with filters | ✅ PASS |
+| 7 | Record Detail View | ✅ PASS |
+| 8 | Help / Guidelines (accordions) | ✅ PASS |
+
+## Files Created
+
+| File | Purpose |
+|------|---------|
+| [index.html](file:///C:/Users/SRM%20MADURAI/.gemini/antigravity/scratch/neojaundice/index.html) | App shell, all 8 screen containers |
+| [index.css](file:///C:/Users/SRM%20MADURAI/.gemini/antigravity/scratch/neojaundice/index.css) | Clinical design system (colors, components, animations) |
+| [app.js](file:///C:/Users/SRM%20MADURAI/.gemini/antigravity/scratch/neojaundice/app.js) | Navigation, form logic, risk scoring, history |
+
+## Key Features
+- **Risk scoring algorithm**: Weighted from clinical inputs (yellowing, sclera, preterm, weight, phototherapy history)
+- **Processing pipeline animation**: 4-step animated analysis with progress bar
+- **Color-coded risk**: Green (Low) / Amber (Moderate) / Red (High) throughout all screens
+- **6 mock history records** pre-loaded with different risk levels + filter chips
+- **Yes/No medical toggles**, delivery type and feeding type selectors
+- **Auto age calculation** from date/time of birth
+- **Save flow**: Saves to in-memory history, navigates home with toast confirmation
+- **Animated scan line** in camera preview; pulsing capture button ring
