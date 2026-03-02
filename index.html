@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>NeoJaundice — Neonatal Jaundice Screening System</title>
+  <meta name="description"
+    content="Professional neonatal jaundice screening system for healthcare workers, nurses, and ASHA workers." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+  <div id="app">
+    <!-- Mobile Frame -->
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="screen-container" id="screen-container">
+
+        <!-- ==================== SCREEN 1: HOME DASHBOARD ==================== -->
+        <div class="screen active" id="screen-home">
+          <div class="screen-inner">
+            <div class="home-header">
+              <div class="logo-area">
+                <div class="logo-icon">
+                  <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                    <circle cx="18" cy="18" r="18" fill="url(#logoGrad)" />
+                    <path d="M11 18c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="white" stroke-width="2.5"
+                      stroke-linecap="round" />
+                    <circle cx="18" cy="22" r="4" fill="white" fill-opacity="0.9" />
+                    <path d="M15 13l1.5-2h3L21 13" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <defs>
+                      <linearGradient id="logoGrad" x1="0" y1="0" x2="36" y2="36">
+                        <stop stop-color="#0077B6" />
+                        <stop offset="1" stop-color="#023E8A" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+                <div>
+                  <h1 class="app-title">NeoJaundice</h1>
+                  <p class="app-subtitle">Neonatal Jaundice Screening System</p>
+                </div>
+              </div>
+              <div class="header-badge">v2.4</div>
+            </div>
+
+            <div class="status-card">
+              <div class="status-row">
+                <div class="status-item">
+                  <span class="status-dot connected" id="device-dot"></span>
+                  <div>
+                    <p class="status-label">Device Status</p>
+                    <p class="status-value connected-text" id="device-status">Connected</p>
+                  </div>
+                </div>
+                <div class="status-divider"></div>
+                <div class="status-item">
+                  <svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                  </svg>
+                  <div>
+                    <p class="status-label">Last Screening</p>
+                    <p class="status-value" id="last-screening">Today, 09:22 AM</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="stats-row">
+              <div class="stat-card">
+                <span class="stat-number">24</span>
+                <span class="stat-label">Today</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number">3</span>
+                <span class="stat-label stat-high">High Risk</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number">156</span>
+                <span class="stat-label">This Month</span>
+              </div>
+            </div>
+
+            <div class="primary-actions">
+              <button class="btn-primary" id="btn-new-screening" onclick="navigate('screen-details')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="16" />
+                  <line x1="8" y1="12" x2="16" y2="12" />
+                </svg>
+                New Screening
+              </button>
+              <button class="btn-secondary" onclick="navigate('screen-history')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 8v4l3 3" />
+                  <path d="M3.05 11a9 9 0 1 0 .5-4.5" />
+                  <path d="M3 3v5h5" />
+                </svg>
+                Screening History
+              </button>
+              <button class="btn-outline" onclick="navigate('screen-help')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
+                Help / Guidelines
+              </button>
+            </div>
+
+            <div class="home-footer">
+              <div class="footer-info">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="footer-icon">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+                <span>Nurse Priya R. — PHC Madurai Central</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== SCREEN 2: NEONATAL DETAILS FORM ==================== -->
+        <div class="screen" id="screen-details">
+          <div class="screen-inner scrollable">
+            <div class="nav-header">
+              <button class="back-btn" onclick="navigate('screen-home')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+              <div>
+                <h2 class="screen-title">Neonatal Details</h2>
+                <p class="screen-step">Step 1 of 3</p>
+              </div>
+              <div class="step-dots">
+                <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+              </div>
+            </div>
+
+            <div class="progress-bar-wrap">
+              <div class="progress-bar" style="width:33%"></div>
+            </div>
+
+            <!-- Section 1: Identification -->
+            <div class="form-section">
+              <div class="section-header">
+                <div class="section-num">1</div>
+                <span>Identification</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Baby ID / Hospital ID <span class="required">*</span></label>
+                <input type="text" class="form-input" id="baby-id" placeholder="e.g. BID-20260302-001" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Baby Name <span class="optional">(optional)</span></label>
+                <input type="text" class="form-input" id="baby-name" placeholder="Enter name if available" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Date &amp; Time of Birth <span class="required">*</span></label>
+                <input type="datetime-local" class="form-input" id="dob" onchange="calcAge()" />
+              </div>
+            </div>
+
+            <!-- Section 2: Age -->
+            <div class="form-section">
+              <div class="section-header">
+                <div class="section-num">2</div>
+                <span>Age</span>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Age (Hours)</label>
+                  <input type="number" class="form-input readonly" id="age-hours" placeholder="Auto" readonly />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Age (Days)</label>
+                  <input type="number" class="form-input readonly" id="age-days" placeholder="Auto" readonly />
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 3: Birth & Risk Factors -->
+            <div class="form-section">
+              <div class="section-header">
+                <div class="section-num">3</div>
+                <span>Birth &amp; Risk Factors</span>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Gestational Age (wks)</label>
+                  <input type="number" class="form-input" id="gest-age" placeholder="e.g. 38" min="22" max="44" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Birth Weight (kg)</label>
+                  <input type="number" class="form-input" id="birth-weight" placeholder="e.g. 2.8" step="0.1" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Delivery Type</label>
+                <div class="toggle-group" id="delivery-type">
+                  <button class="toggle-btn active" data-val="Normal"
+                    onclick="selectToggle('delivery-type', this)">Normal</button>
+                  <button class="toggle-btn" data-val="C-Section"
+                    onclick="selectToggle('delivery-type', this)">C-Section</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Feeding Type</label>
+                <div class="toggle-group" id="feeding-type">
+                  <button class="toggle-btn active" data-val="Breastfed"
+                    onclick="selectToggle('feeding-type', this)">Breastfed</button>
+                  <button class="toggle-btn" data-val="Formula"
+                    onclick="selectToggle('feeding-type', this)">Formula</button>
+                  <button class="toggle-btn" data-val="Mixed"
+                    onclick="selectToggle('feeding-type', this)">Mixed</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 4: Jaundice Indicators -->
+            <div class="form-section">
+              <div class="section-header">
+                <div class="section-num">4</div>
+                <span>Jaundice Indicators</span>
+              </div>
+              <div class="yesno-row">
+                <span class="yesno-label">Visible Yellowing Observed?</span>
+                <div class="yesno-toggle">
+                  <button class="yn-btn" data-id="yellowing" data-val="yes" onclick="setYesNo(this)">Yes</button>
+                  <button class="yn-btn active-no" data-id="yellowing" data-val="no"
+                    onclick="setYesNo(this)">No</button>
+                </div>
+              </div>
+              <div class="yesno-row">
+                <span class="yesno-label">Sclera Yellowing Observed?</span>
+                <div class="yesno-toggle">
+                  <button class="yn-btn" data-id="sclera" data-val="yes" onclick="setYesNo(this)">Yes</button>
+                  <button class="yn-btn active-no" data-id="sclera" data-val="no" onclick="setYesNo(this)">No</button>
+                </div>
+              </div>
+              <div class="yesno-row">
+                <span class="yesno-label">Previous Jaundice History?</span>
+                <div class="yesno-toggle">
+                  <button class="yn-btn" data-id="prev-jaundice" data-val="yes" onclick="setYesNo(this)">Yes</button>
+                  <button class="yn-btn active-no" data-id="prev-jaundice" data-val="no"
+                    onclick="setYesNo(this)">No</button>
+                </div>
+              </div>
+              <div class="yesno-row">
+                <span class="yesno-label">Phototherapy Received?</span>
+                <div class="yesno-toggle">
+                  <button class="yn-btn" data-id="phototherapy" data-val="yes" onclick="setYesNo(this)">Yes</button>
+                  <button class="yn-btn active-no" data-id="phototherapy" data-val="no"
+                    onclick="setYesNo(this)">No</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 5: Blood Factors -->
+            <div class="form-section">
+              <div class="section-header">
+                <div class="section-num">5</div>
+                <span>Blood Factors <span class="optional">(optional)</span></span>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Mother Blood Group</label>
+                  <select class="form-input form-select" id="mother-blood">
+                    <option value="">Select</option>
+                    <option>A+</option>
+                    <option>A-</option>
+                    <option>B+</option>
+                    <option>B-</option>
+                    <option>AB+</option>
+                    <option>AB-</option>
+                    <option>O+</option>
+                    <option>O-</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Baby Blood Group</label>
+                  <select class="form-input form-select" id="baby-blood">
+                    <option value="">Select</option>
+                    <option>A+</option>
+                    <option>A-</option>
+                    <option>B+</option>
+                    <option>B-</option>
+                    <option>AB+</option>
+                    <option>AB-</option>
+                    <option>O+</option>
+                    <option>O-</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn-primary" onclick="proceedToCapture()">
+                Continue to Image Capture
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+              <button class="btn-ghost" onclick="navigate('screen-home')">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== SCREEN 3: IMAGE CAPTURE ==================== -->
+        <div class="screen" id="screen-capture">
+          <div class="screen-inner">
+            <div class="nav-header">
+              <button class="back-btn" onclick="navigate('screen-details')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+              <div>
+                <h2 class="screen-title">Image Capture</h2>
+                <p class="screen-step">Step 2 of 3</p>
+              </div>
+              <div class="step-dots">
+                <span class="dot"></span><span class="dot active"></span><span class="dot"></span>
+              </div>
+            </div>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar" style="width:66%"></div>
+            </div>
+
+            <div class="instruction-card">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="instr-icon">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+              <p>Position handheld device near neonatal <strong>skin or sclera</strong> under even illumination for
+                accurate readings.</p>
+            </div>
+
+            <!-- Capture Type Selector -->
+            <div class="capture-type-selector">
+              <button class="capture-type active" id="ct-skin" onclick="selectCaptureType('skin')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20">
+                  <path d="M12 2a10 10 0 1 0 10 10" />
+                  <path d="M12 6v6l3 3" />
+                </svg>
+                Skin Capture
+              </button>
+              <button class="capture-type" id="ct-sclera" onclick="selectCaptureType('sclera')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20">
+                  <circle cx="12" cy="12" r="10" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="12" cy="12" r="1" fill="currentColor" />
+                </svg>
+                Sclera Capture
+              </button>
+            </div>
+
+            <!-- Camera Preview -->
+            <div class="camera-preview" id="camera-preview">
+              <div class="camera-grid"></div>
+              <div class="camera-corners">
+                <span class="corner tl"></span>
+                <span class="corner tr"></span>
+                <span class="corner bl"></span>
+                <span class="corner br"></span>
+              </div>
+              <div class="camera-center-dot"></div>
+              <p class="camera-label">Camera Preview</p>
+              <div class="scan-line" id="scan-line"></div>
+            </div>
+
+            <!-- Indicator Strip -->
+            <div class="indicator-strip">
+              <div class="indicator ok" id="ind-light">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                  <path
+                    d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                  <circle cx="12" cy="12" r="4" />
+                </svg>
+                Lighting OK
+              </div>
+              <div class="indicator ok" id="ind-dist">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                  <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M9 12h6" />
+                </svg>
+                Distance OK
+              </div>
+              <div class="indicator ok" id="ind-focus">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                  <path
+                    d="M3 9V5a2 2 0 0 1 2-2h4M15 3h4a2 2 0 0 1 2 2v4M21 15v4a2 2 0 0 1-2 2h-4M9 21H5a2 2 0 0 1-2-2v-4" />
+                </svg>
+                Focus OK
+              </div>
+            </div>
+
+            <!-- Capture Button -->
+            <div class="capture-btn-area">
+              <button class="btn-ghost-sm" onclick="navigate('screen-details')">Back</button>
+              <button class="capture-btn" onclick="captureImage()" id="capture-btn">
+                <span class="capture-ring"></span>
+                <span class="capture-inner">CAPTURE</span>
+              </button>
+              <button class="btn-ghost-sm" id="retake-btn" style="opacity:0.4" disabled>Retake</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== SCREEN 4: PROCESSING ==================== -->
+        <div class="screen" id="screen-processing">
+          <div class="screen-inner processing-screen">
+            <div class="processing-logo">
+              <div class="processing-pulse">
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                  <circle cx="30" cy="30" r="30" fill="rgba(0,119,182,0.1)" />
+                  <circle cx="30" cy="30" r="20" fill="rgba(0,119,182,0.2)" />
+                  <circle cx="30" cy="30" r="10" fill="#0077B6" />
+                  <path d="M22 30c0-4.418 3.582-8 8-8s8 3.582 8 8" stroke="white" stroke-width="2.5"
+                    stroke-linecap="round" />
+                  <circle cx="30" cy="34" r="3" fill="white" />
+                </svg>
+              </div>
+            </div>
+
+            <h2 class="processing-title">Analyzing Image</h2>
+            <p class="processing-sub">Neonatal Jaundice Risk Assessment</p>
+
+            <div class="processing-steps" id="processing-steps">
+              <div class="proc-step" id="ps-1">
+                <div class="proc-icon pending">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <span>Extracting region of interest (ROI)</span>
+              </div>
+              <div class="proc-step" id="ps-2">
+                <div class="proc-icon pending">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <span>Normalizing color channels</span>
+              </div>
+              <div class="proc-step" id="ps-3">
+                <div class="proc-icon pending">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <span>Analyzing chromatic features</span>
+              </div>
+              <div class="proc-step" id="ps-4">
+                <div class="proc-icon pending">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <span>Estimating jaundice risk level</span>
+              </div>
+            </div>
+
+            <div class="processing-progress-wrap">
+              <div class="processing-progress-bar" id="proc-bar"></div>
+            </div>
+
+            <p class="processing-note">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+              Please hold device steady during analysis
+            </p>
+          </div>
+        </div>
+
+        <!-- ==================== SCREEN 5: RESULT ==================== -->
+        <div class="screen" id="screen-result">
+          <div class="screen-inner scrollable">
+            <div class="nav-header">
+              <div class="result-header-label">Screening Result</div>
+              <div class="result-timestamp" id="result-timestamp">02 Mar 2026, 9:22 AM</div>
+            </div>
+
+            <!-- Risk Banner -->
+            <div class="risk-banner moderate" id="risk-banner">
+              <div class="risk-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="28" height="28">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                  <line x1="12" y1="9" x2="12" y2="13" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
+              </div>
+              <div>
+                <p class="risk-label">Risk Level</p>
+                <p class="risk-text" id="risk-level-text">MODERATE RISK</p>
+              </div>
+              <div class="risk-score-badge" id="risk-score-badge">6.2</div>
+            </div>
+
+            <!-- Captured image placeholder -->
+            <div class="result-image-card">
+              <div class="captured-img-placeholder">
+                <div class="captured-img-inner">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36"
+                    opacity="0.4">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <polyline points="21 15 16 10 5 21" />
+                  </svg>
+                  <span>Captured Neonatal Region</span>
+                  <span class="img-type-tag" id="capture-type-tag">Skin</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Risk Meter -->
+            <div class="risk-meter-card">
+              <div class="risk-meter-labels">
+                <span class="risk-meter-label low">Low</span>
+                <span class="risk-meter-label moderate">Moderate</span>
+                <span class="risk-meter-label high">High</span>
+              </div>
+              <div class="risk-meter-bar">
+                <div class="risk-meter-fill" id="risk-meter-fill" style="width: 62%"></div>
+                <div class="risk-meter-thumb" id="risk-meter-thumb" style="left: 62%"></div>
+              </div>
+              <div class="risk-meter-ticks">
+                <span>0</span><span>3</span><span>6</span><span>9</span><span>12</span>
+              </div>
+              <div class="risk-scale-bands">
+                <div class="band green"></div>
+                <div class="band amber"></div>
+                <div class="band red"></div>
+              </div>
+            </div>
+
+            <!-- Clinical Summary -->
+            <div class="detail-card">
+              <h3 class="detail-card-title">Clinical Context</h3>
+              <div class="detail-grid" id="clinical-summary">
+                <div class="detail-row"><span>Age</span><span id="res-age">—</span></div>
+                <div class="detail-row"><span>Gestational Age</span><span id="res-gest">—</span></div>
+                <div class="detail-row"><span>Birth Weight</span><span id="res-weight">—</span></div>
+                <div class="detail-row"><span>Feeding</span><span id="res-feeding">—</span></div>
+                <div class="detail-row"><span>Yellowing Observed</span><span id="res-yellowing">—</span></div>
+                <div class="detail-row"><span>Sclera Yellowing</span><span id="res-sclera">—</span></div>
+              </div>
+            </div>
+
+            <!-- Screening Guidance -->
+            <div class="guidance-card" id="guidance-card">
+              <div class="guidance-header">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+                Screening Guidance
+              </div>
+              <p class="guidance-text" id="guidance-text">
+                Rescreen after 24 hours. Monitor bilirubin levels closely. Ensure adequate feeding and hydration. Follow
+                up with attending physician.
+              </p>
+            </div>
+
+            <div class="result-actions">
+              <button class="btn-primary" onclick="saveScreening()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                  <polyline points="17 21 17 13 7 13 7 21" />
+                  <polyline points="7 3 7 8 15 8" />
+                </svg>
+                Save Screening
+              </button>
+              <div class="result-btn-row">
+                <button class="btn-secondary-sm" onclick="navigate('screen-home'); navigate('screen-details')">
+                  New Screening
+                </button>
+                <button class="btn-secondary-sm" onclick="navigate('screen-history')">
+                  View History
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== SCREEN 6: HISTORY ==================== -->
+        <div class="screen" id="screen-history">
+          <div class="screen-inner">
+            <div class="nav-header">
+              <button class="back-btn" onclick="navigate('screen-home')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+              <h2 class="screen-title">Screening History</h2>
+              <button class="icon-btn" onclick="toggleSearch()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20">
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+              </button>
+            </div>
+
+            <div class="filter-row">
+              <button class="filter-chip active" onclick="filterHistory('all', this)">All</button>
+              <button class="filter-chip" onclick="filterHistory('low', this)">Low Risk</button>
+              <button class="filter-chip" onclick="filterHistory('moderate', this)">Moderate</button>
+              <button class="filter-chip" onclick="filterHistory('high', this)">High Risk</button>
+            </div>
+
+            <div class="history-list" id="history-list">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== SCREEN 7: RESULT DETAIL ==================== -->
+        <div class="screen" id="screen-detail-view">
+          <div class="screen-inner scrollable">
+            <div class="nav-header">
+              <button class="back-btn" onclick="navigate('screen-history')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+              <h2 class="screen-title">Record Detail</h2>
+              <button class="icon-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                  <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+                  <polyline points="16 6 12 2 8 6" />
+                  <line x1="12" y1="2" x2="12" y2="15" />
+                </svg>
+              </button>
+            </div>
+
+            <div class="risk-banner low" id="detail-risk-banner">
+              <div class="risk-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="28" height="28">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+              </div>
+              <div>
+                <p class="risk-label">Risk Level</p>
+                <p class="risk-text" id="detail-risk-text">LOW RISK</p>
+              </div>
+              <div class="risk-score-badge" id="detail-risk-badge">2.1</div>
+            </div>
+
+            <div class="result-image-card">
+              <div class="captured-img-placeholder">
+                <div class="captured-img-inner">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36"
+                    opacity="0.4">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <polyline points="21 15 16 10 5 21" />
+                  </svg>
+                  <span>Captured Neonatal Region</span>
+                  <span class="img-type-tag" id="detail-capture-type">Skin</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-card">
+              <h3 class="detail-card-title">Full Neonatal Details</h3>
+              <div class="detail-grid" id="detail-full-info">
+                <!-- JS filled -->
+              </div>
+            </div>
+
+            <div class="detail-card meta-card">
+              <div class="meta-row">
+                <div class="meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                  </svg>
+                  <span id="detail-timestamp">02 Mar 2026, 9:22 AM</span>
+                </div>
+                <div class="meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  </svg>
+                  <span id="detail-facility">PHC Madurai Central</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="guidance-card" id="detail-guidance-card">
+              <div class="guidance-header">Screening Guidance</div>
+              <p class="guidance-text" id="detail-guidance-text">Routine monitoring. Reassess in 48 hours. Ensure
+                adequate breastfeeding.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== SCREEN 8: HELP / GUIDELINES ==================== -->
+        <div class="screen" id="screen-help">
+          <div class="screen-inner scrollable">
+            <div class="nav-header">
+              <button class="back-btn" onclick="navigate('screen-home')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+              <h2 class="screen-title">Help &amp; Guidelines</h2>
+            </div>
+
+            <div class="help-hero">
+              <div class="help-hero-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+              </div>
+              <h3>Jaundice Screening Guidance</h3>
+              <p>Clinical reference for healthcare workers</p>
+            </div>
+
+            <div class="help-section">
+              <div class="help-accordion" onclick="toggleAccordion(this)">
+                <span>How to Position the Device</span>
+                <svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  width="20" height="20">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </div>
+              <div class="help-content open">
+                <ul>
+                  <li>Hold device perpendicular to skin, ≤5 cm away</li>
+                  <li>Ensure uniform natural or clinical white light</li>
+                  <li>Avoid shadows and glare on capture zone</li>
+                  <li>For sclera: gently open eyelid under good lighting</li>
+                  <li>Preferred sites: forehead, sternum, palm, sclera</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="help-section">
+              <div class="help-accordion" onclick="toggleAccordion(this)">
+                <span>Risk Interpretation</span>
+                <svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  width="20" height="20">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </div>
+              <div class="help-content open">
+                <div class="risk-guide-item low-guide">
+                  <span class="risk-guide-badge low-badge">LOW</span>
+                  <span>Score 0–4: Routine monitoring. Reassess in 48h.</span>
+                </div>
+                <div class="risk-guide-item mod-guide">
+                  <span class="risk-guide-badge mod-badge">MOD</span>
+                  <span>Score 4–8: Rescreen in 24h, monitor bilirubin.</span>
+                </div>
+                <div class="risk-guide-item high-guide">
+                  <span class="risk-guide-badge high-badge">HIGH</span>
+                  <span>Score 8+: Immediate referral to hospital. Initiate phototherapy protocols.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="help-section">
+              <div class="help-accordion" onclick="toggleAccordion(this)">
+                <span>When to Refer</span>
+                <svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  width="20" height="20">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </div>
+              <div class="help-content">
+                <ul>
+                  <li>High Risk score (≥8) on any single screening</li>
+                  <li>Visible sclera yellowing regardless of score</li>
+                  <li>Preterm (&lt;35 weeks) with any risk indicator</li>
+                  <li>Moderate risk in newborns &lt;72 hours old</li>
+                  <li>Failed rescreen after 24h monitoring</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="help-section">
+              <div class="help-accordion" onclick="toggleAccordion(this)">
+                <span>Safety Notes</span>
+                <svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  width="20" height="20">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </div>
+              <div class="help-content">
+                <ul>
+                  <li>This app is a screening aid, not a diagnostic tool</li>
+                  <li>Clinical judgment must always supersede app result</li>
+                  <li>Ensure device is calibrated monthly</li>
+                  <li>Disinfect device housing between patients</li>
+                  <li>Do not use artificial or filtered light sources</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="version-info">
+              <p>NeoJaundice v2.4.1 — Clinical Edition</p>
+              <p>Approved for use in PHC/CHC facilities</p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /screen-container -->
+
+      <!-- Toast Notification -->
+      <div class="toast" id="toast"></div>
+
+    </div><!-- /phone-frame -->
+  </div>
+
+  <script src="app.core.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
